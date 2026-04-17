@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://bc53h3p0xqmyg"]
+
+[ext_resource type="Script" uid="uid://bceyxrvuj3423" path="res://addons/state_machine/transition_container.gd" id="1_mbto0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4pod1"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.6)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6m5yu"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.225, 0.225, 0.225, 0.6)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_58lr0"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.6)
+corner_radius_top_left = 5
+corner_radius_top_right = 3
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4wr72"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.225, 0.225, 0.225, 0.6)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qyd22"]
+content_margin_left = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 5.0
+bg_color = Color(0.16078432, 0.16078432, 0.16078432, 1)
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="TransitionContainer" type="FoldableContainer" unique_id=1964504033]
+theme_override_styles/title_panel = SubResource("StyleBoxFlat_4pod1")
+theme_override_styles/title_hover_panel = SubResource("StyleBoxFlat_6m5yu")
+theme_override_styles/title_collapsed_panel = SubResource("StyleBoxFlat_58lr0")
+theme_override_styles/title_collapsed_hover_panel = SubResource("StyleBoxFlat_4wr72")
+theme_override_styles/panel = SubResource("StyleBoxFlat_qyd22")
+title = "Transition 1"
+script = ExtResource("1_mbto0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=29971091]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer" unique_id=1649642082]
+layout_mode = 2
+text = "Target"
+
+[node name="StateDropdown" type="OptionButton" parent="VBoxContainer" unique_id=1281110782]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=885277952]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Expression"
+
+[node name="ExpressionText" type="TextEdit" parent="VBoxContainer" unique_id=82442873]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+emoji_menu_enabled = false
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer" unique_id=734908116]
+layout_mode = 2
+
+[node name="ButtonsContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=283308227]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="VBoxContainer" unique_id=18985829]
+layout_mode = 2

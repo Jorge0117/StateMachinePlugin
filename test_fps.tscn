@@ -1,0 +1,135 @@
+[gd_scene format=3 uid="uid://i4u3m3b432np"]
+
+[ext_resource type="Texture2D" uid="uid://bbsfbvw5s4eqe" path="res://icon.svg" id="1_phcew"]
+[ext_resource type="Script" uid="uid://c0dwes4cxi7mx" path="res://player_controller.gd" id="2_fctgh"]
+[ext_resource type="Script" uid="uid://c6cvr5pseje4n" path="res://camera.gd" id="3_0xgcb"]
+[ext_resource type="Script" uid="uid://bamnessaxycla" path="res://addons/state_machine/state_machine_class.gd" id="3_l6ni1"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xgcb"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_1c0ay"]
+sky_material = SubResource("ProceduralSkyMaterial_0xgcb")
+
+[sub_resource type="Environment" id="Environment_ad1ns"]
+background_mode = 2
+sky = SubResource("Sky_1c0ay")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iatjc"]
+albedo_texture = ExtResource("1_phcew")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_iatjc"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_phcew"]
+
+[node name="Node3D" type="Node3D" unique_id=1117473575]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=695545437]
+environment = SubResource("Environment_ad1ns")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=169810292]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=690014708]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = SubResource("StandardMaterial3D_iatjc")
+use_collision = true
+size = Vector3(31, 1, 31)
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=306010118]
+script = ExtResource("2_fctgh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D" unique_id=2012900428]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_iatjc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=245391720]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_phcew")
+
+[node name="StateMachine" type="Node" parent="CharacterBody3D" unique_id=660251613]
+script = ExtResource("3_l6ni1")
+states = {
+"Air": {
+"on_enter": {},
+"on_exit": {},
+"on_physics_update": {
+"function": "air_physics_update",
+"script": "res://fps_player_states.gd"
+},
+"on_update": {}
+},
+"Idle": {
+"on_enter": {},
+"on_exit": {},
+"on_physics_update": {
+"function": "idle_physics_update",
+"script": "res://fps_player_states.gd"
+},
+"on_update": {}
+},
+"Run": {
+"on_enter": {},
+"on_exit": {},
+"on_physics_update": {
+"function": "run_physics_update",
+"script": "res://fps_player_states.gd"
+},
+"on_update": {}
+},
+"Walk": {
+"on_enter": {},
+"on_exit": {},
+"on_physics_update": {
+"function": "walk_physics_update",
+"script": "res://fps_player_states.gd"
+},
+"on_update": {}
+}
+}
+transitions = [[{
+"condition": "!velocity.is_zero_approx()",
+"source": "Idle",
+"to": "Walk"
+}], [{
+"condition": "velocity.is_zero_approx()",
+"source": "Walk",
+"to": "Idle"
+}, {
+"condition": "!is_on_floor()",
+"source": "Walk",
+"to": "Air"
+}, {
+"condition": "is_running()",
+"source": "Walk",
+"to": "Run"
+}], [{
+"condition": "!is_on_floor()",
+"source": "Run",
+"to": "Air"
+}, {
+"condition": "!is_running()",
+"source": "Run",
+"to": "Walk"
+}], [{
+"condition": "is_on_floor() and !velocity.is_zero_approx()",
+"source": "Air",
+"to": "Walk"
+}, {
+"condition": "is_on_floor()",
+"source": "Air",
+"to": "Idle"
+}]]
+initial_state = "Idle"
+metadata/_custom_type_script = "uid://bamnessaxycla"
+
+[node name="CameraPivot" type="Node3D" parent="CharacterBody3D" unique_id=782072531]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Camera" type="Camera3D" parent="CharacterBody3D/CameraPivot" unique_id=343356439]
+unique_name_in_owner = true
+script = ExtResource("3_0xgcb")
