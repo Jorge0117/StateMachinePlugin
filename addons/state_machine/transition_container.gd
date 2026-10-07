@@ -3,11 +3,11 @@ extends FoldableContainer
 class_name TransitionContainer
 
 signal remove_transition(index)
-signal sort_transition(index, new_index)
-signal create_transition(source_index, target_index)
-signal update_expression(index, value)
+signal transition_up(transition_res)
+signal transition_down(transition_res)
+signal request_render()
 
-var index := 0
+var transition : StateMachineTransition
 var up_button : Button
 var down_button : Button
 var delete_button : Button
@@ -23,14 +23,14 @@ func _ready() -> void:
 	up_button.icon = up_icon
 	up_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	up_button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	up_button.pressed.connect(sort_up)
+	up_button.pressed.connect(move_up)
 	
 	down_button = Button.new()
 	var down_icon := EditorInterface.get_base_control().get_theme_icon('GuiSpinboxDown', 'EditorIcons')
 	down_button.icon = down_icon
 	down_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	down_button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	down_button.pressed.connect(sort_down)
+	down_button.pressed.connect(move_down)
 	
 	delete_button = Button.new()
 	var delete_icon := EditorInterface.get_base_control().get_theme_icon('GuiClose', 'EditorIcons')
@@ -48,34 +48,48 @@ func _ready() -> void:
 	
 	expression_text = %ExpressionText
 	expression_text.text_changed.connect(update_condition)
+	folding_changed.connect(on_collapse)
 
-func set_index(new_index, last_index):
-	index = new_index
+func set_data(transition_res : StateMachineTransition, first, last, index):
 	title = 'Transition ' + str(index)
 	up_button.disabled = false
 	down_button.disabled = false
-	if index == 0:
+	if first:
 		up_button.disabled = true
-	if new_index == last_index:
+	if last:
 		down_button.disabled = true
+	transition = transition_res
+	folded = transition.meta.collapsed
+	expression_text.text = transition.expression_text
+	
+func on_collapse(is_collapsed):
+	transition.meta.collapsed = is_collapsed
 		
-func load_dropdown(states):
+func load_dropdown(state_machine : StateMachineResource):
 	state_dropdown.clear()
-	for state in states:
-		state_dropdown.add_item(state)
+	for state : StateMachineNode in state_machine.states:
+		state_dropdown.add_item(state.name)
 	state_dropdown.selected = -1
+	for i in range(state_dropdown.item_count):
+		var item_text := state_dropdown.get_item_text(i)
+		if item_text == transition.target:
+			state_dropdown.selected = i
+			break
+	
 		
 func remove():
-	remove_transition.emit(index)
+	remove_transition.emit(transition)
 	
-func sort_up():
-	sort_transition.emit(index, index - 1)
+func move_up():
+	transition_up.emit(transition)
 	
-func sort_down():
-	sort_transition.emit(index, index + 1)
+func move_down():
+	transition_down.emit(transition)
 	
 func dropdown_selected(dropdown_index):
-	create_transition.emit(index, dropdown_index)
+	var target_text := state_dropdown.get_item_text(dropdown_index)
+	transition.target = target_text
+	request_render.emit()
 	
 func update_condition():
-	update_expression.emit(index, expression_text.text)
+	transition.expression_text = expression_text.text

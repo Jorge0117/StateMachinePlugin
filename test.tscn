@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bbsfbvw5s4eqe" path="res://icon.svg" id="1_37kl0"]
 [ext_resource type="Script" uid="uid://dyf5wlbokum5m" path="res://2d_move.gd" id="2_6uqi0"]
 [ext_resource type="Script" uid="uid://bamnessaxycla" path="res://addons/state_machine/state_machine_class.gd" id="2_8uh7m"]
+[ext_resource type="Resource" uid="uid://ecoqxxwldalh" path="res://StateMachines/2d.res" id="4_ppyta"]
 
 [node name="Node3D" type="Node2D" unique_id=1784522047]
 
@@ -13,40 +14,5 @@ script = ExtResource("2_6uqi0")
 
 [node name="StateMachine" type="Node" parent="Sprite2D" unique_id=713588671]
 script = ExtResource("2_8uh7m")
-states = {
-"Idle": {
-"on_enter": {
-"function": "idle_enter",
-"script": "res://scripts/test_states.gd"
-},
-"on_exit": {
-"function": "idle_exit",
-"script": "res://scripts/test_states.gd"
-},
-"on_physics_update": {},
-"on_update": {}
-},
-"Walk": {
-"on_enter": {},
-"on_exit": {},
-"on_physics_update": {
-"function": "physics_update",
-"script": "res://scripts/test_states.gd"
-},
-"on_update": {}
-}
-}
-transitions = {
-"Idle": [{
-"condition": "input_dir.length() > 0",
-"source": "Idle",
-"to": "Walk"
-}],
-"Walk": [{
-"condition": "input_dir.length() == 0",
-"source": "Walk",
-"to": "Idle"
-}]
-}
-initial_state = "Idle"
+state_machine_resource = ExtResource("4_ppyta")
 metadata/_custom_type_script = "uid://bamnessaxycla"

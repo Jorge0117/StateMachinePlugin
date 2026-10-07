@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://cthgrfmqcstti"]
 
 [ext_resource type="Script" uid="uid://clc3dqblcpndk" path="res://addons/state_machine/state_machine_dock.gd" id="1_hwbkm"]
-[ext_resource type="Script" uid="uid://c82cmnp84du2g" path="res://addons/state_machine/graph_edit.gd" id="2_qyd22"]
+[ext_resource type="Script" uid="uid://cvxyirs6tx2cj" path="res://addons/state_machine/scripts/grid_renderer.gd" id="3_4pod1"]
 
-[sub_resource type="DPITexture" id="DPITexture_4pod1"]
+[sub_resource type="DPITexture" id="DPITexture_qyd22"]
 _source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#e0e0e0\" d=\"m7 1v6h-6v2h6v6h2v-6h6v-2h-6v-6z\"/></svg>
 "
 saturation = 2.0
@@ -13,8 +13,28 @@ Color(0.37254903, 1, 0.5921569, 1): Color(0.45, 0.95, 0.5, 1),
 Color(1, 0.8666667, 0.39607844, 1): Color(0.83, 0.78, 0.62, 1)
 }
 
-[sub_resource type="DPITexture" id="DPITexture_qyd22"]
+[sub_resource type="DPITexture" id="DPITexture_4pod1"]
 _source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#e0e0e0\" d=\"M3 2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9c1.105 0 1.818-.91 2-2l1-6a1 1 0 0 0-1-1H6c-.552 0-.909.455-1 1l-1 6c-.091.545-.448 1-1 1a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1 1 1 0 0 0 1 1h5a1 1 0 0 0-1-1H7a2 2 0 0 0-2-2H3z\"/></svg>
+"
+saturation = 2.0
+color_map = {
+Color(1, 0.37254903, 0.37254903, 1): Color(1, 0.47, 0.42, 1),
+Color(0.37254903, 1, 0.5921569, 1): Color(0.45, 0.95, 0.5, 1),
+Color(1, 0.8666667, 0.39607844, 1): Color(0.83, 0.78, 0.62, 1)
+}
+
+[sub_resource type="DPITexture" id="DPITexture_6m5yu"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#e0e0e0\" d=\"M3 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4l-3-3h-1v6H3zm1 0v5h3V1zm4 8a1 1 0 0 1 0 4 1 1 0 0 1 0-4z\"/></svg>
+"
+saturation = 2.0
+color_map = {
+Color(1, 0.37254903, 0.37254903, 1): Color(1, 0.47, 0.42, 1),
+Color(0.37254903, 1, 0.5921569, 1): Color(0.45, 0.95, 0.5, 1),
+Color(1, 0.8666667, 0.39607844, 1): Color(0.83, 0.78, 0.62, 1)
+}
+
+[sub_resource type="DPITexture" id="DPITexture_58lr0"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"8\"><path fill=\"#fff\" fill-opacity=\".4\" d=\"M3.86 0A3.851 3.851 0 0 0 0 3.86v.28A3.851 3.851 0 0 0 3.86 8h6.28A3.851 3.851 0 0 0 14 4.14v-.28A3.851 3.851 0 0 0 10.14 0zM3 3a1 1 0 0 1 0 2 1 1 0 0 1 0-2zm4 0a1 1 0 0 1 0 2 1 1 0 0 1 0-2zm4 0a1 1 0 0 1 0 2 1 1 0 0 1 0-2z\"/></svg>
 "
 saturation = 2.0
 color_map = {
@@ -60,49 +80,72 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 editable = false
+expand_to_text_length = true
 context_menu_enabled = false
 emoji_menu_enabled = false
+
+[node name="UnsavedResourceLabel" type="Label" parent="PanelContainer/MainContainer/HBoxContainer2" unique_id=1939355635]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "*"
 
 [node name="CreateResourceButton" type="Button" parent="PanelContainer/MainContainer/HBoxContainer2" unique_id=1581190851]
 unique_name_in_owner = true
 layout_mode = 2
-icon = SubResource("DPITexture_4pod1")
+tooltip_text = "Create Resource"
+icon = SubResource("DPITexture_qyd22")
 
 [node name="LoadResourceButton" type="Button" parent="PanelContainer/MainContainer/HBoxContainer2" unique_id=2100572226]
 unique_name_in_owner = true
 layout_mode = 2
-icon = SubResource("DPITexture_qyd22")
+tooltip_text = "Load Resource"
+icon = SubResource("DPITexture_4pod1")
 
-[node name="HBoxContainer" type="SplitContainer" parent="PanelContainer/MainContainer" unique_id=1256597867]
+[node name="SaveResourceButton" type="Button" parent="PanelContainer/MainContainer/HBoxContainer2" unique_id=2053816409]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+tooltip_text = "Load Resource"
+icon = SubResource("DPITexture_6m5yu")
+
+[node name="OptionsResourceButton" type="Button" parent="PanelContainer/MainContainer/HBoxContainer2" unique_id=1733457701]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "More"
+icon = SubResource("DPITexture_58lr0")
+
+[node name="StateMachineContainer" type="SplitContainer" parent="PanelContainer/MainContainer" unique_id=1256597867]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 split_offsets = PackedInt32Array(250, 262)
 split_offset = 250
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MainContainer/HBoxContainer" unique_id=495261965]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MainContainer/StateMachineContainer" unique_id=495261965]
 custom_minimum_size = Vector2(250, 150)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelContainer/MainContainer/HBoxContainer/VBoxContainer" unique_id=1490286367]
+[node name="Label" type="Label" parent="PanelContainer/MainContainer/StateMachineContainer/VBoxContainer" unique_id=1490286367]
 layout_mode = 2
 text = "States"
 horizontal_alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MainContainer/HBoxContainer/VBoxContainer" unique_id=803471069]
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MainContainer/StateMachineContainer/VBoxContainer" unique_id=803471069]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_hwbkm")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MainContainer/HBoxContainer/VBoxContainer/PanelContainer" unique_id=1572902952]
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MainContainer/StateMachineContainer/VBoxContainer/PanelContainer" unique_id=1572902952]
 layout_mode = 2
 
-[node name="StatesContainer" type="VBoxContainer" parent="PanelContainer/MainContainer/HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer" unique_id=1422495730]
+[node name="StatesContainer" type="VBoxContainer" parent="PanelContainer/MainContainer/StateMachineContainer/VBoxContainer/PanelContainer/ScrollContainer" unique_id=1422495730]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_constants/separation = 2
 
-[node name="StatesTree" type="Tree" parent="PanelContainer/MainContainer/HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/StatesContainer" unique_id=1240134754]
+[node name="StatesTree" type="Tree" parent="PanelContainer/MainContainer/StateMachineContainer/VBoxContainer/PanelContainer/ScrollContainer/StatesContainer" unique_id=1240134754]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -110,52 +153,54 @@ columns = 2
 hide_root = true
 scroll_vertical_enabled = false
 
-[node name="AddStateButton" type="Button" parent="PanelContainer/MainContainer/HBoxContainer/VBoxContainer" unique_id=373896772]
+[node name="AddStateButton" type="Button" parent="PanelContainer/MainContainer/StateMachineContainer/VBoxContainer" unique_id=373896772]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Add State"
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MainContainer/HBoxContainer" unique_id=900170197]
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MainContainer/StateMachineContainer" unique_id=900170197]
+clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="GraphEdit" type="GraphEdit" parent="PanelContainer/MainContainer/HBoxContainer/PanelContainer" unique_id=980846660]
+[node name="StateMachineGrid" type="Control" parent="PanelContainer/MainContainer/StateMachineContainer/PanelContainer" unique_id=1048376601]
 unique_name_in_owner = true
 layout_mode = 2
-script = ExtResource("2_qyd22")
+script = ExtResource("3_4pod1")
+metadata/_custom_type_script = "uid://cvxyirs6tx2cj"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/MainContainer/HBoxContainer" unique_id=835321813]
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/MainContainer/StateMachineContainer" unique_id=835321813]
 custom_minimum_size = Vector2(250, 150)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelContainer/MainContainer/HBoxContainer/VBoxContainer2" unique_id=1950500247]
+[node name="Label" type="Label" parent="PanelContainer/MainContainer/StateMachineContainer/VBoxContainer2" unique_id=1950500247]
 layout_mode = 2
 text = "Node Settings"
 horizontal_alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MainContainer/HBoxContainer/VBoxContainer2" unique_id=908525515]
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MainContainer/StateMachineContainer/VBoxContainer2" unique_id=908525515]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_hwbkm")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MainContainer/HBoxContainer/VBoxContainer2/PanelContainer" unique_id=424416237]
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MainContainer/StateMachineContainer/VBoxContainer2/PanelContainer" unique_id=424416237]
 layout_mode = 2
 
-[node name="TransitionContainer" type="VBoxContainer" parent="PanelContainer/MainContainer/HBoxContainer/VBoxContainer2/PanelContainer/ScrollContainer" unique_id=1907523958]
+[node name="TransitionContainer" type="VBoxContainer" parent="PanelContainer/MainContainer/StateMachineContainer/VBoxContainer2/PanelContainer/ScrollContainer" unique_id=1907523958]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="NodeNameLabel" type="Label" parent="PanelContainer/MainContainer/HBoxContainer/VBoxContainer2/PanelContainer/ScrollContainer/TransitionContainer" unique_id=171376393]
+[node name="NodeNameLabel" type="Label" parent="PanelContainer/MainContainer/StateMachineContainer/VBoxContainer2/PanelContainer/ScrollContainer/TransitionContainer" unique_id=171376393]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Node Name"
 horizontal_alignment = 1
 
-[node name="TransitionContainer" type="VBoxContainer" parent="PanelContainer/MainContainer/HBoxContainer/VBoxContainer2/PanelContainer/ScrollContainer/TransitionContainer" unique_id=791365525]
+[node name="TransitionContainer" type="VBoxContainer" parent="PanelContainer/MainContainer/StateMachineContainer/VBoxContainer2/PanelContainer/ScrollContainer/TransitionContainer" unique_id=791365525]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="AddTransitionButton" type="Button" parent="PanelContainer/MainContainer/HBoxContainer/VBoxContainer2" unique_id=896359075]
+[node name="AddTransitionButton" type="Button" parent="PanelContainer/MainContainer/StateMachineContainer/VBoxContainer2" unique_id=896359075]
 unique_name_in_owner = true
 layout_mode = 2
 disabled = true

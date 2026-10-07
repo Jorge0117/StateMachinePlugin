@@ -8,5 +8,5 @@ class_name SpriteController
 
 var input_dir : Vector2
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	input_dir = Input.get_vector("Left", "Right", "Up", "Down")

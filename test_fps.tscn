@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://c0dwes4cxi7mx" path="res://player_controller.gd" id="2_fctgh"]
 [ext_resource type="Script" uid="uid://c6cvr5pseje4n" path="res://camera.gd" id="3_0xgcb"]
 [ext_resource type="Script" uid="uid://bamnessaxycla" path="res://addons/state_machine/state_machine_class.gd" id="3_l6ni1"]
+[ext_resource type="Resource" uid="uid://cy0j7xo102nna" path="res://StateMachines/test_fps.res" id="4_1c0ay"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xgcb"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -53,78 +54,7 @@ shape = SubResource("CapsuleShape3D_phcew")
 
 [node name="StateMachine" type="Node" parent="CharacterBody3D" unique_id=660251613]
 script = ExtResource("3_l6ni1")
-states = {
-"Air": {
-"on_enter": {},
-"on_exit": {},
-"on_physics_update": {
-"function": "air_physics_update",
-"script": "res://fps_player_states.gd"
-},
-"on_update": {}
-},
-"Idle": {
-"on_enter": {},
-"on_exit": {},
-"on_physics_update": {
-"function": "idle_physics_update",
-"script": "res://fps_player_states.gd"
-},
-"on_update": {}
-},
-"Run": {
-"on_enter": {},
-"on_exit": {},
-"on_physics_update": {
-"function": "run_physics_update",
-"script": "res://fps_player_states.gd"
-},
-"on_update": {}
-},
-"Walk": {
-"on_enter": {},
-"on_exit": {},
-"on_physics_update": {
-"function": "walk_physics_update",
-"script": "res://fps_player_states.gd"
-},
-"on_update": {}
-}
-}
-transitions = [[{
-"condition": "!velocity.is_zero_approx()",
-"source": "Idle",
-"to": "Walk"
-}], [{
-"condition": "velocity.is_zero_approx()",
-"source": "Walk",
-"to": "Idle"
-}, {
-"condition": "!is_on_floor()",
-"source": "Walk",
-"to": "Air"
-}, {
-"condition": "is_running()",
-"source": "Walk",
-"to": "Run"
-}], [{
-"condition": "!is_on_floor()",
-"source": "Run",
-"to": "Air"
-}, {
-"condition": "!is_running()",
-"source": "Run",
-"to": "Walk"
-}], [{
-"condition": "is_on_floor() and !velocity.is_zero_approx()",
-"source": "Air",
-"to": "Walk"
-}, {
-"condition": "is_on_floor()",
-"source": "Air",
-"to": "Idle"
-}]]
-initial_state = "Idle"
+state_machine_resource = ExtResource("4_1c0ay")
 metadata/_custom_type_script = "uid://bamnessaxycla"
 
 [node name="CameraPivot" type="Node3D" parent="CharacterBody3D" unique_id=782072531]

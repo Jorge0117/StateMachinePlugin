@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://f8yrma8y0ink"]
+
+[ext_resource type="Script" uid="uid://8ot1uoqamekp" path="res://addons/state_machine/scripts/state_machine_node.gd" id="1_s3pch"]
+[ext_resource type="StyleBox" uid="uid://bp0drqsyy8nw5" path="res://addons/state_machine/panels/state_machine_node_normal.tres" id="2_3j5c4"]
+
+[node name="StateMachineNode" type="PanelContainer" unique_id=392627507]
+offset_right = 98.0
+offset_bottom = 29.0
+theme_override_styles/panel = ExtResource("2_3j5c4")
+script = ExtResource("1_s3pch")
+
+[node name="Name" type="Label" parent="." unique_id=901753581]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.6955032, 0.6955031, 0.6955031, 1)
+text = "Node Name"
+horizontal_alignment = 1
+vertical_alignment = 1

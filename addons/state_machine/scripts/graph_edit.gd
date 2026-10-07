@@ -5,14 +5,16 @@ class_name Graph
 
 var nodes : Array[GraphNode] = []
 
-func add_node(item : TreeItem):
-	var node := GraphNode.new()
-	node.title = item.get_text(0)
+func add_node(item : StateMachineNode):
+	var node := GraphEditNode.new()
+	node.title = item.name
 	node.resizable = true
 	set_selected(node)
-	arrange_nodes()
+	#arrange_nodes()
 	add_child(node)
 	nodes.push_back(node)
+	node.state_machine_node = item
+	node.position_offset = item.meta.position
 	
 	var input = Control.new()
 	input.name = 'input'
@@ -32,3 +34,8 @@ func remove_node(item : TreeItem):
 	var index = item.get_index()
 	var node = nodes.pop_at(index)
 	node.free()
+
+func clear():
+	for child in get_children():
+		if child is GraphNode:
+			child.free()
